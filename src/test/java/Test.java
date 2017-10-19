@@ -62,7 +62,7 @@ public class Test {
         myArgs.execute("testApi -thread 10 -task 1000 -time 60000 -api 1,2,3,4");
         myArgs.execute("testApi");
         myArgs.execute("测试空命令 123");
-        myArgs.execute(new String[]{"测试空命令"});
+        myArgs.execute(new String[]{"测试空命令 456"});
         myArgs.execute("user 1 xiyuan fengyu 25 -sex boy");
     }
 
