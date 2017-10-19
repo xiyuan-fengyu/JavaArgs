@@ -41,3 +41,6 @@ output
 _t = [20], _n = [1000], time = [60000]
 _t = [10], _n = [1000], time = [80000]
 ```
+
+**More example**  
+[src/test/java/Test.java](src/test/java/Test.java)  

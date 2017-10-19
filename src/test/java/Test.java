@@ -36,7 +36,7 @@ public class Test {
             System.out.println("_thread = [" + _thread + "], _task = [" + _task + "], _time = [" + _time + "], _api = [" + _api + "]");
         }
 
-        @ArgsExp(exp = " <str<.*>>")
+        @ArgsExp(exp = " <str<.*>>")//空命令的申明中，第一个空格不能省略，实际输入命令时，不需要第一个空格
         public void testEmptyCommand(String str) {
             System.out.println(str);
         }
