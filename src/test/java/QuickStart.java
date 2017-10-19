@@ -1,9 +1,3 @@
-# JavaArgs
-command line args parse  
-
-**Quick Start**  
-[src/test/java/QuickStart.java](src/test/java/QuickStart.java)  
-```java
 import com.xiyuan.args.Args;
 import com.xiyuan.args.ArgsExp;
 
@@ -34,10 +28,3 @@ public class QuickStart extends Args{
     }
 
 }
-```
-
-output
-```
-_t = [20], _n = [1000], time = [60000]
-_t = [10], _n = [1000], time = [80000]
-```
