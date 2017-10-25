@@ -191,7 +191,7 @@ public class Args {
 
         private HashMap<String, Param> methodParams;
 
-        private static final Matcher paramsMatcher = Pattern.compile("(\\[)([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)<(.*?)><(.*?)>(\\])|(\\()([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)(<(.*?)>)(\\))|(<)([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)(<(.*?)>)(>)").matcher("");
+        private static final Matcher paramsMatcher = Pattern.compile("(\\[)([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)<(.*?)><(.*?)>(\\])|(\\()([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)(<(.*?)>)(\\))|(<)([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)(<(.*?)>)(>)|(\\[)([-_]+[a-zA-Z0-9]+|[a-zA-Z][-_a-zA-Z0-9]*)(\\])").matcher("");
 
         private Command(Args ctx, ArgsExp argsExp, Method executor) {
             this.ctx = ctx;
@@ -221,6 +221,10 @@ public class Args {
                     else if (paramsMatcher.group(11) != null) {
                         paramMatcher = new IndexedParamMatcher(paramsMatcher.group(12), paramsMatcher.group(14), paramIndex++);
                     }
+                    else if (paramsMatcher.group(16) != null) {
+                        paramMatcher = new FlagParamMatcher(paramsMatcher.group(17));
+                    }
+
                     if (paramMatcher != null) {
                         paramMatchers.put(paramMatcher.paramName, paramMatcher);
                     }
@@ -273,6 +277,12 @@ public class Args {
                         Param paramInfo = methodParams.get(paramMatcher.methodParamName);
                         if (paramArr[paramInfo.index] == null) {
                             paramArr[paramInfo.index] = CastUtil.cast(((OptionalParamMatcher)paramMatcher).defaultValue, paramInfo.type);
+                        }
+                    }
+                    else if (paramMatcher instanceof FlagParamMatcher) {
+                        Param paramInfo = methodParams.get(paramMatcher.methodParamName);
+                        if (paramArr[paramInfo.index] == null) {
+                            paramArr[paramInfo.index] = false;
                         }
                     }
                 }
@@ -337,6 +347,13 @@ public class Args {
                                 values.pop();
                             }
                         }
+                    }
+                }
+                else if (paramMatcher instanceof FlagParamMatcher) {
+                    values.push(new Tuple<>(paramMatcher.paramName, "true"));
+                    result = paramValueMatch(args, curIndex + 1, indexParamI, values);
+                    if (!result) {
+                        values.pop();
                     }
                 }
                 else {
@@ -449,6 +466,13 @@ public class Args {
                 }
                 else {
                     return false;
+                }
+            }
+            else if (paramMatcher instanceof FlagParamMatcher) {
+                values.push(new Tuple<>(paramMatcher.paramName, "true"));
+                result = paramValueMatch(argAndDividers, curIndex + 2, indexParamI, values);
+                if (!result) {
+                    values.pop();
                 }
             }
             else {
@@ -732,6 +756,14 @@ public class Args {
             super(paramName, true, paramValueRegex);
             this.index = index;
         }
+    }
+
+    private static class FlagParamMatcher extends ParamMatcher {
+
+        private FlagParamMatcher(String paramName) {
+            super(paramName, false, "");
+        }
+
     }
 
     public static void main(String[] args) {

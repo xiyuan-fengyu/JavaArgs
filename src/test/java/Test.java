@@ -15,9 +15,10 @@ public class Test {
         }
 
         @ArgsExp(exp = "sayHello" +
+                " [-m]" +
                 " <to<.+>>")
-        public void sayHelloTo(String to) {
-            System.out.println("Hello, " + to + " !");
+        public void sayHelloTo(String to, boolean _m) {
+            System.out.println("Hello, " + to + (_m ? " !" : ""));
         }
 
         @ArgsExp(exp = "login" +
@@ -45,9 +46,10 @@ public class Test {
                 " <id<\\d+>>" +
                 " <name<.+>>" +
                 " <age<\\d{1,3}>>" +
+                " [-married]" +
                 " [-sex<unknow><boy|girl|unknow>]")
-        public void user(int id, String name, int age, String _sex) {
-            System.out.println("id = [" + id + "], name = [" + name + "], age = [" + age + "], _sex = [" + _sex + "]");
+        public void user(int id, String name, int age, boolean _married, String _sex) {
+            System.out.println("id = [" + id + "], name = [" + name + "], age = [" + age + "], _married = [" + _married + "], _sex = [" + _sex + "]");
         }
 
     }
@@ -56,14 +58,18 @@ public class Test {
         MyArgs myArgs = new MyArgs();
         myArgs.showAllUsage();
         myArgs.execute("test 8080 -s   true  ");
-        myArgs.execute(new String[]{"sayHello", "Tomcat"});
+        myArgs.execute(new String[]{"sayHello", "Tom cat"});
+        myArgs.execute(new String[]{"sayHello", "Tom cat", "-m"});
         myArgs.execute("sayHello Tom cat");
+        myArgs.execute("sayHello Tom cat -m");
+        myArgs.execute("sayHello -m Tom cat");
         myArgs.execute("login 18911111111 123456");
         myArgs.execute("testApi -thread 10 -task 1000 -time 60000 -api 1,2,3,4");
         myArgs.execute("testApi");
         myArgs.execute("测试空命令 123");
         myArgs.execute(new String[]{"测试空命令 456"});
         myArgs.execute("user 1 xiyuan fengyu 25 -sex boy");
+        myArgs.execute("user 2 three three 25 -sex girl -married");
     }
 
 }
