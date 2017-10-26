@@ -35,34 +35,4 @@
         </plugins>
     </build>
 
-    <!--deploy start-->
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <url>https://github.com/xiyuan-fengyu/JavaArgs</url>
-        <connection>git@github.com:xiyuan-fengyu/JavaArgs.git</connection>
-        <developerConnection>https://github.com/xiyuan-fengyu</developerConnection>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>xiyuan-fengyu</name>
-            <email>xiyuan_fengyu@163.com</email>
-            <url>https://github.com/xiyuan-fengyu</url>
-        </developer>
-    </developers>
-    <!--deploy end-->
-
 </project>
