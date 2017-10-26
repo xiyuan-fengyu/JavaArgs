@@ -4,9 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xiyuan</groupId>
+    <groupId>com.github.xiyuan-fengyu</groupId>
     <artifactId>JavaArgs</artifactId>
     <version>1.0.0</version>
+    <description>
+        command line args parser for java
+    </description>
 
     <dependencies>
 
@@ -31,4 +34,35 @@
             </plugin>
         </plugins>
     </build>
+
+    <!--deploy start-->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/xiyuan-fengyu/JavaArgs</url>
+        <connection>git@github.com:xiyuan-fengyu/JavaArgs.git</connection>
+        <developerConnection>https://github.com/xiyuan-fengyu</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>xiyuan-fengyu</name>
+            <email>xiyuan_fengyu@163.com</email>
+            <url>https://github.com/xiyuan-fengyu</url>
+        </developer>
+    </developers>
+    <!--deploy end-->
+
 </project>
