@@ -766,15 +766,4 @@ public class Args {
 
     }
 
-    public static void main(String[] args) {
-        Command.paramsMatcher.reset("<phone<\\d{11}>> <code<\\d{6}>>");
-        while (Command.paramsMatcher.find()) {
-            int count = Command.paramsMatcher.groupCount();
-            for (int i = 1; i <= count; i++) {
-                System.out.println(i + "\t" + Command.paramsMatcher.group(i));
-            }
-            System.out.println();
-        }
-    }
-
 }
